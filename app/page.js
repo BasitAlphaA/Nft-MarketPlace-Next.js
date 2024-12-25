@@ -1,29 +1,55 @@
-"use client"
+"use client";
+import { useMoralis } from "react-moralis";
+import NFTBox from "../components/NFTBox";
+import networkMapping from "../constants/networkMapping.json";
+import GET_ACTIVE_ITEMS from "../constants/subgraphQueries";
+import { useQuery } from "@apollo/client";
 
-import Image from "next/image";
-import "./globals.css";
-// import Head from "next/head";
+
 
 
 export default function Home() {
-  const dAppMetadata = {
-    name: "NFT Marketplace", // Replace with your dApp name
-    url: "http://localhost:3000/", // Replace with your dApp URL
-  };
+  const { chainId, isWeb3Enabled } = useMoralis();
+  const chainString = chainId ? parseInt(chainId).toString() : null;
+  const marketplaceAddress = chainId ? networkMapping[chainString].NftMarketplace[0] : null;
+
+  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+
   return (
-    <div >
-     {/* <Head>
-     <title>Nft Marketplace</title>
-      <metta name="description" content="Nft Marketplace"/>
-      <link rel="icon" href="/favicon.ico"/>
-     </Head> */}
-     Hi!
-    </div>
+         <div className="container mx-auto ">
+          <h1 className="py-4 px-4 italic text-4xl font-semibold text-teal-700 ">Recently Listed</h1>
+          <div className="flex flex-wrap">
+            {isWeb3Enabled && chainId ? (
+              loading || !listedNfts ? (
+                <div>Loading...</div>
+              ) : (
+                listedNfts.activeItems.map((nft) => {
+                  const { price, nftAddress, tokenId, seller } = nft;
+                  return marketplaceAddress ? (
+                    <NFTBox
+                      price={price}
+                      nftAddress={nftAddress}
+                      tokenId={tokenId}
+                      nftMarketPlaceAddress={marketplaceAddress}
+                      seller={seller}
+                      key={`${nftAddress}${tokenId}`}
+                    />
+                  ) : (
+                    <div>Network error, please switch to a supported network.</div>
+                  );
+                })
+              )
+            ) : (
+              <div>Web3 Currently Not Enabled</div>
+            )}
+          </div>
+        </div>
+
   );
 }
-// FIRSTLY, U NEED A DATA BASE OR MAYBE CALLED SERVER.....TO INDEX THE EVENTS OF UR MARKETPLACE
-// BUT FOR THIS U NEED TO CONNECT UR DATABASE WITH UR CONTRACT AKA MARKETPLACE
-// BY CREATING UR DATABASE U WILL GET WEBHOOK URL OF UR DATABASE WHICH U WILL STICK INTO MORALIS STREAM
-// THEN HOPEFULLY THE MORALIS STREAM USED BY OUR FRONTEND TO SHOW STUFF ON APP BY LISTENING TO THE EVENT
-//  
-// SMART CONTRACT => DATABASE {IT'S WEBHOOK}  => MORALIS STREAM => FRONTEND { TO GET LOGS OF EVENTS SO FRONTEND KNOWS WHAT TO SHOW }
+
+
+// 1. updateModal ***DONE***
+// 2. NFTbox  ***DONE***
+// 3. page.js ***DONE***
+// 4. sell-nft ***DONE***

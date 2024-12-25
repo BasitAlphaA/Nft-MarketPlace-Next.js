@@ -4,7 +4,65 @@
       2. If not, you can buy the listing
  2. Sell page:
     1. You can list the NFT on Marketplace     
+    2. You can withdraw proceeds when someone buys your listed nft
 
+
+# NextJS NFT Marketplace with TheGraph
+
+---
+
+## Features
+
+1. **Home Page:**
+   - Show recently listed NFTs.
+   - If you own the NFT, you can update the listing.
+   - If not, you can buy the listing.
+
+2. **Sell Page:**
+   - You can list the NFT on the Marketplace.
+   - You can withdraw proceeds when someone buys your listed NFT.
+
+---
+
+## Steps to Get Started
+
+### 1. Git clone the contracts repo
+
+In its own terminal/command line, run:
+
+```bash
+git clone https://github.com/PatrickAlphaC/hardhat-nft-marketplace-fcc
+cd hardhat-nextjs-nft-marketplace-fcc
+yarn
+2. Deploy to Sepolia
+After installing dependencies, deploy your contracts to Sepolia:
+
+bash
+Copy code
+yarn hardhat deploy --network sepolia
+3. Deploy your subgraph
+Run the following commands to clone and deploy the subgraph:
+
+bash
+Copy code
+cd ..
+git clone https://github.com/PatrickAlphaC/graph-nft-marketplace-fcc
+cd graph-nft-marketplace-fcc
+yarn
+Follow the instructions in the README of that repo.
+
+Then, make a .env file and place your temporary query URL into it as NEXT_PUBLIC_SUBGRAPH_URL.
+
+4. Start your UI
+Make sure that:
+
+In your networkMapping.json, you have an entry for NftMarketplace on the Sepolia network.
+You have a NEXT_PUBLIC_SUBGRAPH_URL in your .env file.
+Finally, run:
+
+bash
+Copy code
+yarn dev
 
 
 

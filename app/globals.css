@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body, html {
+  height: 100%; /* Ensure scrolling is disabled properly when modal opens */
+  overflow: hidden; /* Prevent background scrolling during modal use */
+}
+/* .modal-container,
+.ReactModal__Overlay,
+.ReactModal__Content {
+  /* Comment or remove all these */
+

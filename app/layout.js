@@ -5,8 +5,21 @@ import "./globals.css";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import Header from "@/components/Header";
+import { NotificationProvider } from "web3uikit"
+import { WagmiProvider } from "wagmi";
+import config from "../components/wagmiConfig";
+
+
+//apollo stuff
+import { ApolloProvider,ApolloClient, InMemoryCache } from "@apollo/client";
 
 const MoralisProvider = dynamic(() => import("react-moralis").then(mod => mod.MoralisProvider), { ssr: false });
+
+//apollo stuff
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "https://api.studio.thegraph.com/query/91951/nft-marketplace/version/latest"
+})
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,12 +49,17 @@ export default function RootLayout({ children }) {
     
     <html lang="en">
     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <WagmiProvider config={config}>
       <MoralisProvider initializeOnMount={false}>
+        <ApolloProvider client={client}>
+        <NotificationProvider>
         <Header/>
         {children}
+        </NotificationProvider>
+        </ApolloProvider>
       </MoralisProvider>
+      </WagmiProvider>
     </body>
   </html>
   );
 }
-//                yarn add moralis-v1 react-moralis ///////////////////////###############################
