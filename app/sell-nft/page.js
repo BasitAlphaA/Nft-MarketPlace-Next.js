@@ -5,7 +5,7 @@ import{useMoralis, useWeb3Contract} from "react-moralis"
 import{useState, useEffect} from "react"
 import{ethers} from"ethers"
 import abi from "../../constants/abi.json"
-import Abi from "../../constants/ABI.json"
+import rawABI from "../../constants/marketPlaceABI.json"
 import networkmapping from "../../constants/networkMapping.json"
 import { useAccount } from "wagmi";
 import { readContract, writeContract  } from "@wagmi/core";
@@ -23,7 +23,7 @@ const effectiveChainId = chainString === "31337" ? "11155111" : chainString;
 
 // Abis Formatting & Address
 const nftAbi = abi[effectiveChainId]["BasicNft"]
-const marketPlaceAbi = Abi[effectiveChainId]["NftMarketPlace"]
+const marketPlaceAbi = rawABI[effectiveChainId]["NftMarketPlace"]
 const marketPlaceAddress = networkmapping[effectiveChainId].NftMarketplace[0]
 
 
