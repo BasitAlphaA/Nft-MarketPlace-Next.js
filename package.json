@@ -10,6 +10,9 @@
     "deploy": "graph deploy --studio nft-marketplace-graph",
     "codegen": "graph codegen"
   },
+  {
+  "packageManager": "yarn@1.22.22"
+},
   "dependencies": {
     "@apollo/client": "^3.12.2",
     "@moralisweb3/common-evm-utils": "^2.27.2",
