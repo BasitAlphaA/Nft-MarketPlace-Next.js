@@ -1,7 +1,7 @@
 import {Modal, Input, useNotification} from "web3uikit"
 import { useState } from "react"
 import {useWeb3Contract} from "react-moralis"
-import nftMarketPlaceAbi from "../constants/ABI.json"
+import nftMarketPlaceAbi from "../constants/marketPlaceABI.json"
 import { ethers } from "ethers"
 
 
