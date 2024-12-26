@@ -1,7 +1,7 @@
  "use client"
 import {useState, useEffect, useRef } from "react"
 import {useMoralis , useWeb3Contract} from "react-moralis"
-import nftMarketPlaceAbi from "../constants/ABI.json"
+import nftMarketPlaceAbi from "../constants/marketPlaceABI.json"
 import abi from "../constants/abi.json"
 import Image from "next/image"
 import { Card, useNotification } from "web3uikit"
